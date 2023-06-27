@@ -15,6 +15,7 @@ type Lexer struct {
 
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
+	l.readChar() // Initialize l.ch
 	return l
 }
 
