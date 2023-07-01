@@ -2,6 +2,8 @@
 
 package ast
 
+import "seahorsesyntax.villdyr.dev/token"
+
 type Node interface {
 	TokenLiteral() string
 }
@@ -15,6 +17,23 @@ type Expression interface {
 	Node
 	expressionNode()
 }
+
+type LetStatement struct {
+	Token token.Token
+	Name  *Identifier
+	Value Expression
+}
+
+func (ls *LetStatement) statementNode()       {}
+func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
+
+type Identifier struct {
+	Token token.Token
+	Value string
+}
+
+func (i *Identifier) expressionNode()      {}
+func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
 
 type Program struct {
 	Statements []Statement
